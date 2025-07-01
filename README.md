@@ -8,7 +8,13 @@ It offers commands such as `build`, `pull`, `push`, and more, making it easy for
 
 ## Documentation
 
-You can find the full documentation on the [getting started](./docs/getting-started.md).
+You can find comprehensive documentation in the following guides:
+
+- **[Getting Started](./docs/getting-started.md)** - Quick start guide and basic usage
+- **[API Reference](./docs/api-reference.md)** - Complete API documentation for all packages and interfaces
+- **[CLI Reference](./docs/cli-reference.md)** - Detailed command-line interface documentation
+- **[Developer Guide](./docs/developer-guide.md)** - Best practices, integration patterns, and advanced use cases
+- **[Modelfile Reference](./docs/modelfile-reference.md)** - Complete reference for Modelfile syntax and examples
 
 ## LICENSE
 
