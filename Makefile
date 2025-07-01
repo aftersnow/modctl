@@ -51,11 +51,11 @@ fmt: ## Run go fmt against code.
 
 .PHONY: vet
 vet: ## Run go vet against code.
-	go vet ./...
+	go vet -tags disable_libgit2 ./...
 
 .PHONY: test
 test: fmt vet ## Run unit test and display the coverage.
-	go test $$(go list ./pkg/...) -coverprofile cover.out
+	go test -tags disable_libgit2 $$(go list ./pkg/...) -coverprofile cover.out
 	go tool cover -func cover.out
 
 GOLANGCI_LINT = $(shell pwd)/bin/golangci-lint
@@ -91,7 +91,7 @@ lint-fix: $(GOIMPORTS_INSTALL)
 
 .PHONY: build
 build: fmt vet
-	go build -o output/modctl main.go
+	go build -tags disable_libgit2 -o output/modctl main.go
 
 ## Location to install dependencies to
 LOCALBIN ?= $(shell pwd)/bin

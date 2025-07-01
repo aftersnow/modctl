@@ -111,6 +111,11 @@ func (s *storage) PullManifest(ctx context.Context, repo, reference string) ([]b
 
 // PushManifest pushes the manifest to the storage.
 func (s *storage) PushManifest(ctx context.Context, repo, reference string, manifestBytes []byte) (string, error) {
+	return s.PushManifestWithMediaType(ctx, repo, reference, manifestBytes, ocispec.MediaTypeImageManifest)
+}
+
+// PushManifestWithMediaType pushes the manifest to the storage with specified media type.
+func (s *storage) PushManifestWithMediaType(ctx context.Context, repo, reference string, manifestBytes []byte, mediaType string) (string, error) {
 	repository, err := s.repository(ctx, repo)
 	if err != nil {
 		return "", err
@@ -121,8 +126,7 @@ func (s *storage) PushManifest(ctx context.Context, repo, reference string, mani
 		return "", err
 	}
 
-	// TODO: pass in the mediatype from function parameters.
-	imageManifest, desc, err := distribution.UnmarshalManifest(ocispec.MediaTypeImageManifest, manifestBytes)
+	imageManifest, desc, err := distribution.UnmarshalManifest(mediaType, manifestBytes)
 	if err != nil {
 		return "", err
 	}
@@ -204,7 +208,7 @@ func (s *storage) PushBlob(ctx context.Context, repo string, blobReader io.Reade
 
 	desc, err := blob.Commit(ctx, provisional)
 	if err != nil {
-		return "", 0, nil
+		return "", 0, err
 	}
 
 	return desc.Digest.String(), desc.Size, nil
